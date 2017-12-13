@@ -7,7 +7,6 @@ namespace DDEngine
 {
 	public class DDGame
 	{
-		//Private Variables
 		/// <summary>
 		/// The instance.
 		/// </summary>
@@ -17,7 +16,6 @@ namespace DDEngine
 		/// </summary>
 		private RenderTarget2D _nativeRenderTarget;
 
-		//Public Variables
 		/// <summary>
 		/// Gets the content.
 		/// </summary>
@@ -71,6 +69,8 @@ namespace DDEngine
 			this.Graphics = graphics;
 			this.Dimensions = new Vector3(Width, Height, Zoom);
             this.State = State;
+
+			State.Initialize();
 
 			_nativeRenderTarget = new RenderTarget2D(Graphics.GraphicsDevice, (int)Dimensions.X, (int)Dimensions.Y);
 
