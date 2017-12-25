@@ -14,14 +14,14 @@ namespace DDEngine
         /// Gets the members.
         /// </summary>
         /// <value>The members.</value>
-        public List<DDBasic> Members { private set; get; }
+		public List<DDObject> Members { private set; get; }
 
 		/// <summary>
 		/// Initialize this state.
 		/// </summary>
         public virtual void Initialize()
         {
-            Members = new List<DDBasic>();
+			Members = new List<DDObject>();
         }
 
         /// <summary>
@@ -31,7 +31,7 @@ namespace DDEngine
 		{
 			Content = new ContentManager(DDGame.Instance.Content.ServiceProvider, "Content");
             
-            foreach (DDBasic i in Members)
+			foreach (DDObject i in Members)
             {
                 i.LoadContent(Content);
             }
@@ -52,7 +52,7 @@ namespace DDEngine
         /// <param name="gameTime">Game time.</param>
 		public virtual void Update(GameTime gameTime)
 		{
-            foreach (DDBasic i in Members)
+			foreach (DDObject i in Members)
             {
                 i.Update(gameTime);
             }
@@ -65,7 +65,7 @@ namespace DDEngine
         /// <param name="spriteBatch">Sprite batch.</param>
 		public virtual void Draw(SpriteBatch spriteBatch)
 		{
-            foreach (DDBasic i in Members)
+			foreach (DDObject i in Members)
             {
                 i.Draw(spriteBatch);
             }
@@ -76,7 +76,7 @@ namespace DDEngine
         /// </summary>
         /// <returns>The add.</returns>
         /// <param name="item">Item.</param>
-        public DDBasic Add(DDBasic item)
+		public DDObject Add(DDObject item)
         {
             Members.Add(item);
             return item;

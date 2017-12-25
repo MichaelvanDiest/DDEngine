@@ -15,7 +15,6 @@ namespace DDEngine
 		/// The native render target.
 		/// </summary>
 		private RenderTarget2D _nativeRenderTarget;
-
 		/// <summary>
 		/// Gets the content.
 		/// </summary>
@@ -52,7 +51,6 @@ namespace DDEngine
 				return _instance;
 			}
 		}
-
 		private DDGame() { }
 
 		/// <summary>
