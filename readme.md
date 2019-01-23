@@ -1,2 +1,2 @@
 # DDEngine
-2D Engine based on the MonoGame framework
+2D Engine based on the MonoGame 3.7.1 framework
