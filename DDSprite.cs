@@ -7,27 +7,14 @@ namespace DDEngine
 {
 	class DDSprite : DDObject
     {
-		
         /// <summary>
         /// The position.
         /// </summary>
         public Vector2 Position;
 		/// <summary>
-		/// Height & Width of the sprite
-		/// </summary>
-		public Vector2 Dimensions;
-		/// <summary>
 		/// Animation
 		/// </summary>
-		public DDAnimation Animation;
-		/// <summary>
-		/// The path for the sprite.
-		/// </summary>
-		private String path;
-		/// <summary>
-		/// The texture for the sprite.
-		/// </summary>
-		private Texture2D image;
+		public DDAnimationManager Animation = new DDAnimationManager();
 		/// <summary>
 		/// Initializes a new instance.
 		/// </summary>
@@ -47,15 +34,13 @@ namespace DDEngine
 		/// <param name="Content">Content.</param>
 		public override void LoadContent(ContentManager Content)
 		{
+			Animation.LoadContent(Content);
 			base.LoadContent(Content);
-
-            image = Content.Load<Texture2D>(path);
 		}
 
 		public override void Update(GameTime gameTime)
 		{
-			Animation.Position = Position;
-			Animation.Update(gameTime);
+			if (Animation != null) Animation.Update(gameTime, Position);
 		}
 
 		/// <summary>
@@ -67,17 +52,6 @@ namespace DDEngine
 		{
 			//spriteBatch.Draw(image, Position, Color.White);
 			Animation.Draw(spriteBatch);
-		}
-
-		/// <summary>
-		/// Loads the sprite.
-		/// </summary>
-		/// <param name="path">Path.</param>
-		public void loadSprite(String path, int width, int height)
-		{
-			this.path = path;
-			this.Dimensions.X = width;
-			this.Dimensions.Y = height;
 		}
     }
 }

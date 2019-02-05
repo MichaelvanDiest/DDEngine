@@ -1,23 +1,39 @@
 ﻿using System;
+using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace DDEngine.DDEngine
+namespace DDEngine
 {
-	class DDAnimationManager
+	class DDAnimationManager : DDObject
 	{
+		/// <summary>
+		/// Is the animated sprite active?
+		/// </summary>
+		public bool Active = true;
+		/// <summary>
+		/// List of all the animations
+		/// </summary>
+		private Dictionary<string, DDAnimation> animations;
+		/// <summary>
+		/// Current animation playing
+		/// </summary>
 		private DDAnimation curAnimation;
+		/// <summary>
+        /// Time since frame has been updated
+        /// </summary>
+        private int elapsedTime = 0;
 
-		public void Update(GameTime gameTime)
+		public void Update(GameTime gameTime, Vector2 Position)
 		{
 			if (!curAnimation.Active) return;
 
 			//Update elapsed time
-			curAnimation.elapsedTime += (int)gameTime.ElapsedGameTime.TotalMilliseconds;
+			elapsedTime += (int)gameTime.ElapsedGameTime.TotalMilliseconds;
 
 			//Switch frames
-			if (curAnimation.elapsedTime > curAnimation.frameSpeed)
+			if (elapsedTime > curAnimation.frameSpeed)
 			{
 				curAnimation.currentFrame++;
 
@@ -30,22 +46,59 @@ namespace DDEngine.DDEngine
 				}
 
 				//Reset elapsed time
-				curAnimation.elapsedTime = 0;
+				elapsedTime = 0;
 			}
 
+			//Set position
+			curAnimation.Position = Position;
 			//Grab the frame from the strip
 			curAnimation.sourceRect = new Rectangle(curAnimation.currentFrame * curAnimation.FrameWidth, 0, curAnimation.FrameWidth, curAnimation.FrameHeight);
 			curAnimation.destinationRect = new Rectangle((int)curAnimation.Position.X - (int)(curAnimation.FrameWidth * curAnimation.scale) / 2, (int)curAnimation.Position.Y - (int)(curAnimation.FrameHeight * curAnimation.scale) / 2, (int)(curAnimation.FrameWidth * curAnimation.scale), (int)(curAnimation.FrameHeight * curAnimation.scale));
 		}
 
-		public void Draw(SpriteBatch spriteBatch)
+		/// <summary>
+		/// Load Content
+		/// </summary>
+		/// <param name="Content"></param>
+		public override void LoadContent(ContentManager Content)
 		{
-			if (curAnimation.Active) spriteBatch.Draw(curAnimation.spriteStrip, curAnimation.destinationRect, curAnimation.sourceRect, curAnimation.color);
+			foreach (KeyValuePair<string, DDAnimation> anim in animations)
+			{
+				anim.Value.LoadContent(Content);
+			}
+
+			base.LoadContent(Content);
 		}
 
-		public void Add()
+		/// <summary>
+		/// Draw the current animation
+		/// </summary>
+		/// <param name="spriteBatch"></param>
+		public void Draw(SpriteBatch spriteBatch)
 		{
-			
+			if (curAnimation != null)
+			{
+				if (Active) spriteBatch.Draw(curAnimation.spriteStrip, curAnimation.destinationRect, curAnimation.sourceRect, Color.White);
+			}
+		}
+
+		/// <summary>
+		/// Add a new animation.
+		/// </summary>
+		/// <param name="animationName"></param>
+		/// <param name="spritePath"></param>
+		/// <param name="frameWidth"></param>
+		/// <param name="frameHeight"></param>
+		/// <param name="frameCount"></param>
+		/// <param name="frameSpeed"></param>
+		/// <param name="scale"></param>
+		/// <param name="looping"></param>
+		public void Add(string animationName, string spritePath, int frameWidth, int frameHeight, int frameCount, int frameSpeed, float scale, bool looping)
+		{
+			if (animations == null) animations = new Dictionary<string, DDAnimation>();
+
+			animations.Add(animationName, new DDAnimation(spritePath, frameWidth, frameHeight, frameCount, frameSpeed, scale, looping));
+			curAnimation = animations[animationName];
 		}
 	}
 }

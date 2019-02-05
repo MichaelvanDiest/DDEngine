@@ -5,20 +5,20 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace DDEngine
 {
-    class DDAnimation
+    class DDAnimation : DDObject
     {
         /// <summary>
         /// Sprite Sheet
         /// </summary>
         public Texture2D spriteStrip;
+		/// <summary>
+		/// Path to the image.
+		/// </summary>
+		private string spritePath;
         /// <summary>
         /// Sprite scale.
         /// </summary>
         public float scale;
-        /// <summary>
-        /// Time since frame has been updated
-        /// </summary>
-        public int elapsedTime;
         /// <summary>
         /// Time a frame is displayed
         /// </summary>
@@ -31,10 +31,6 @@ namespace DDEngine
         /// Index of the current frame we are displaying
         /// </summary>
         public int currentFrame;
-        /// <summary>
-        /// Color of the frame
-        /// </summary>
-        public Color color;
         /// <summary>
         /// Area of the frame to display
         /// </summary>
@@ -64,22 +60,30 @@ namespace DDEngine
 		/// </summary>
         public Vector2 Position;
 
-        public DDAnimation(Texture2D texture, Vector2 position, int frameWidth, int frameHeight, int frameCount, int frameSpeed, Color color, float scale, bool looping)
+        public DDAnimation(string spritePath, int frameWidth, int frameHeight, int frameCount, int frameSpeed, float scale, bool looping)
         {
-            this.color = color;
+			this.spritePath = spritePath;
             this.FrameWidth = frameWidth;
             this.FrameHeight = frameHeight;
             this.frameCount = frameCount;
             this.frameSpeed = frameSpeed;
+			this.scale = scale;
             this.Looping = looping;
-            this.Position = position;
-            this.spriteStrip = texture;
 
             //Set time to zero
-            elapsedTime = 0;
             currentFrame = 0;
 
 			Active = true;
         }
+
+		/// <summary>
+		/// Load Content
+		/// </summary>
+		/// <param name="Content"></param>
+		public override void LoadContent(ContentManager Content)
+		{
+			spriteStrip = Content.Load<Texture2D>(spritePath);
+			base.LoadContent(Content);
+		}
     }
 }
