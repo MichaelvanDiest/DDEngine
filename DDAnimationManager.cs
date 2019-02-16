@@ -13,6 +13,10 @@ namespace DDEngine
 		/// </summary>
 		public bool Active = true;
 		/// <summary>
+		/// Sprite Effect
+		/// </summary>
+		public SpriteEffects spriteEffect;
+		/// <summary>
 		/// List of all the animations
 		/// </summary>
 		private Dictionary<string, DDAnimation> animations;
@@ -21,9 +25,17 @@ namespace DDEngine
 		/// </summary>
 		private DDAnimation curAnimation;
 		/// <summary>
-        /// Time since frame has been updated
+        /// Area to display the image in game
         /// </summary>
-        private int elapsedTime = 0;
+        public Rectangle destinationRect = new Rectangle();
+		/// <summary>
+		/// Position of sprite.
+		/// </summary>
+		private Vector2 Position;
+		/// <summary>
+		/// Time since frame has been updated
+		/// </summary>
+		private int elapsedTime = 0;
 
 		public void Update(GameTime gameTime, Vector2 Position)
 		{
@@ -50,10 +62,10 @@ namespace DDEngine
 			}
 
 			//Set position
-			curAnimation.Position = Position;
+			this.Position = Position;
 			//Grab the frame from the strip
 			curAnimation.sourceRect = new Rectangle(curAnimation.currentFrame * curAnimation.FrameWidth, 0, curAnimation.FrameWidth, curAnimation.FrameHeight);
-			curAnimation.destinationRect = new Rectangle((int)curAnimation.Position.X - (int)(curAnimation.FrameWidth * curAnimation.scale) / 2, (int)curAnimation.Position.Y - (int)(curAnimation.FrameHeight * curAnimation.scale) / 2, (int)(curAnimation.FrameWidth * curAnimation.scale), (int)(curAnimation.FrameHeight * curAnimation.scale));
+			destinationRect = new Rectangle((int)Position.X - (int)(curAnimation.FrameWidth * curAnimation.scale) / 2, (int)Position.Y - (int)(curAnimation.FrameHeight * curAnimation.scale) / 2, (int)(curAnimation.FrameWidth * curAnimation.scale), (int)(curAnimation.FrameHeight * curAnimation.scale));
 		}
 
 		/// <summary>
@@ -74,11 +86,11 @@ namespace DDEngine
 		/// Draw the current animation
 		/// </summary>
 		/// <param name="spriteBatch"></param>
-		public void Draw(SpriteBatch spriteBatch)
+		public override void Draw(SpriteBatch spriteBatch)
 		{
 			if (curAnimation != null)
 			{
-				if (Active) spriteBatch.Draw(curAnimation.spriteStrip, curAnimation.destinationRect, curAnimation.sourceRect, Color.White);
+				if (Active) spriteBatch.Draw(curAnimation.spriteStrip, destinationRect, curAnimation.sourceRect, Color.White, 0, new Vector2(curAnimation.FrameWidth/2, curAnimation.FrameHeight/2), spriteEffect, 0f);
 			}
 		}
 
@@ -98,6 +110,15 @@ namespace DDEngine
 			if (animations == null) animations = new Dictionary<string, DDAnimation>();
 
 			animations.Add(animationName, new DDAnimation(spritePath, frameWidth, frameHeight, frameCount, frameSpeed, scale, looping));
+			curAnimation = animations[animationName];
+		}
+
+		/// <summary>
+		/// Play an animation
+		/// </summary>
+		/// <param name="animationName"></param>
+		public void Play(string animationName)
+		{
 			curAnimation = animations[animationName];
 		}
 	}

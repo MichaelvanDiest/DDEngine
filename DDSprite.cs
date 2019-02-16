@@ -7,10 +7,14 @@ namespace DDEngine
 {
 	class DDSprite : DDObject
     {
-        /// <summary>
-        /// The position.
-        /// </summary>
-        public Vector2 Position;
+		/// <summary>
+		/// The position.
+		/// </summary>
+		public Vector2 Position;
+		/// <summary>
+		/// Sprite Effect
+		/// </summary>
+		public SpriteEffects spriteEffect = SpriteEffects.None;
 		
 		/// <summary>
 		/// Animation
@@ -25,10 +29,8 @@ namespace DDEngine
         public DDSprite(int X = 0, int Y = 0)
         {
 			//Set Positionn
-			Position = new Vector2();
-            Position.X = X;
-            Position.Y = Y;
-        }
+			Position = new Vector2(X, Y);
+		}
 
 		/// <summary>
 		/// Loads the sprite into the content manager.
@@ -46,7 +48,11 @@ namespace DDEngine
 		/// <param name="gameTime"></param>
 		public override void Update(GameTime gameTime)
 		{
-			if (animation != null) animation.Update(gameTime, Position);
+			if (animation != null)
+			{
+				animation.spriteEffect = spriteEffect;
+				animation.Update(gameTime, Position);
+			}
 		}
 
 		/// <summary>
@@ -56,7 +62,7 @@ namespace DDEngine
 		/// <param name="spriteBatch">Sprite batch.</param>
 		public override void Draw(SpriteBatch spriteBatch)
 		{
-			animation.Draw(spriteBatch);
+			if (animation != null) animation.Draw(spriteBatch);
 		}
 
 		/// <summary>
@@ -75,6 +81,15 @@ namespace DDEngine
 			if (animation == null) animation = new DDAnimationManager();
 
 			animation.Add(animationName, spritePath, frameWidth, frameHeight, frameCount, frameSpeed, scale, looping);
+		}
+
+		/// <summary>
+		/// Play an animation.
+		/// </summary>
+		/// <param name="animationName"></param>
+		public void playAnimation(string animationName)
+		{
+			animation.Play(animationName);
 		}
     }
 }

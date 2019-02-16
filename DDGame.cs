@@ -114,7 +114,7 @@ namespace DDEngine
 		{
 			Graphics.GraphicsDevice.SetRenderTarget(_nativeRenderTarget);
 			Graphics.GraphicsDevice.Clear(BackgroundColor);
-			spriteBatch.Begin();
+			spriteBatch.Begin(samplerState: SamplerState.PointClamp);
 			State.Draw(spriteBatch);
 			spriteBatch.End();
 			Graphics.GraphicsDevice.SetRenderTarget(null);

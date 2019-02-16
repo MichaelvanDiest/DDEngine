@@ -36,10 +36,6 @@ namespace DDEngine
         /// </summary>
         public Rectangle sourceRect = new Rectangle();
         /// <summary>
-        /// Area to display the image in game
-        /// </summary>
-        public Rectangle destinationRect = new Rectangle();
-        /// <summary>
         /// Width of the frame
         /// </summary>
         public int FrameWidth;
@@ -55,10 +51,6 @@ namespace DDEngine
         /// If the animation loops
         /// </summary>
         public bool Looping;
-		/// <summary>
-		/// Position to draw the sprite
-		/// </summary>
-        public Vector2 Position;
 
         public DDAnimation(string spritePath, int frameWidth, int frameHeight, int frameCount, int frameSpeed, float scale, bool looping)
         {
