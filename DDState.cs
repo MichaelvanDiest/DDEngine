@@ -14,7 +14,11 @@ namespace DDEngine
         /// Gets the members.
         /// </summary>
         /// <value>The members.</value>
-		public List<DDObject> Members { private set; get; }
+		public List<DDObject> Members { get; private set; }
+        /// <summary>
+        /// Camera.
+        /// </summary>
+        public DDCamera Camera { get; private set; }
 
 		/// <summary>
 		/// Initialize this state.
@@ -22,6 +26,8 @@ namespace DDEngine
         public virtual void Initialize()
         {
 			Members = new List<DDObject>();
+            Camera = new DDCamera();
+            Camera.Initialize();
         }
 
         /// <summary>
