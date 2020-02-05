@@ -38,34 +38,34 @@ namespace DDEngine
         /// <summary>
         /// Width of the frame
         /// </summary>
-        public int FrameWidth;
+        public int frameWidth;
         /// <summary>
         /// Height of the frame
         /// </summary>
-        public int FrameHeight;
+        public int frameHeight;
         /// <summary>
         /// State of the animation
         /// </summary>
-        public bool Active;
+        public bool active;
         /// <summary>
         /// If the animation loops
         /// </summary>
-        public bool Looping;
+        public bool looping;
 
         public DDAnimation(string spritePath, int frameWidth, int frameHeight, int frameCount, int frameSpeed, float scale, bool looping)
         {
 			this.spritePath = spritePath;
-            this.FrameWidth = frameWidth;
-            this.FrameHeight = frameHeight;
+            this.frameWidth = frameWidth;
+            this.frameHeight = frameHeight;
             this.frameCount = frameCount;
             this.frameSpeed = frameSpeed;
 			this.scale = scale;
-            this.Looping = looping;
+            this.looping = looping;
 
             //Set time to zero
             currentFrame = 0;
 
-			Active = true;
+			active = true;
         }
 
 		/// <summary>
