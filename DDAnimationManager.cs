@@ -39,7 +39,7 @@ namespace DDEngine
 
 		public void Update(GameTime gameTime, Vector2 Position)
 		{
-			if (!curAnimation.Active) return;
+			if (!curAnimation.active) return;
 
 			//Update elapsed time
 			elapsedTime += (int)gameTime.ElapsedGameTime.TotalMilliseconds;
@@ -54,18 +54,18 @@ namespace DDEngine
 				{
 					curAnimation.currentFrame = 0;
 
-					if (!curAnimation.Looping) curAnimation.Active = false;
+					if (!curAnimation.looping) curAnimation.active = false;
 				}
 
 				//Reset elapsed time
 				elapsedTime = 0;
 			}
 
-			//Set position
-			this.Position = Position;
 			//Grab the frame from the strip
-			curAnimation.sourceRect = new Rectangle(curAnimation.currentFrame * curAnimation.FrameWidth, 0, curAnimation.FrameWidth, curAnimation.FrameHeight);
-			destinationRect = new Rectangle((int)Position.X - (int)(curAnimation.FrameWidth * curAnimation.scale) / 2, (int)Position.Y - (int)(curAnimation.FrameHeight * curAnimation.scale) / 2, (int)(curAnimation.FrameWidth * curAnimation.scale), (int)(curAnimation.FrameHeight * curAnimation.scale));
+			curAnimation.sourceRect = new Rectangle(curAnimation.currentFrame * curAnimation.frameWidth, 0, curAnimation.frameWidth, curAnimation.frameHeight);
+			//Update its position
+			this.Position = Position;
+			destinationRect = new Rectangle((int)Position.X - (int)(curAnimation.frameWidth * curAnimation.scale) / 2, (int)Position.Y - (int)(curAnimation.frameHeight * curAnimation.scale) / 2, (int)(curAnimation.frameWidth * curAnimation.scale), (int)(curAnimation.frameHeight * curAnimation.scale));
 		}
 
 		/// <summary>
@@ -90,7 +90,7 @@ namespace DDEngine
 		{
 			if (curAnimation != null)
 			{
-				if (Active) spriteBatch.Draw(curAnimation.spriteStrip, destinationRect, curAnimation.sourceRect, Color.White, 0, new Vector2(curAnimation.FrameWidth/2, curAnimation.FrameHeight/2), spriteEffect, 0f);
+				if (Active) spriteBatch.Draw(curAnimation.spriteStrip, destinationRect, curAnimation.sourceRect, Color.White, 0, Vector2.Zero, spriteEffect, 0f);
 			}
 		}
 
