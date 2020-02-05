@@ -19,17 +19,17 @@ namespace DDEngine
 		/// Gets the content.
 		/// </summary>
 		/// <value>The content.</value>
-		public ContentManager Content { private set; get; }
+		public ContentManager Content { get; private set; }
 		/// <summary>
 		/// Gets the graphics.
 		/// </summary>
 		/// <value>The graphics.</value>
-		public GraphicsDeviceManager Graphics { private set; get; }
+		public GraphicsDeviceManager Graphics { get; private set;}
 		/// <summary>
 		/// Gets the dimensions.
 		/// </summary>
 		/// <value>The dimensions.</value>
-		public Vector3 Dimensions { private set; get; }
+		public Vector3 Dimensions { get; private set; }
 		/// <summary>
 		/// Current state.
 		/// </summary>
@@ -76,7 +76,6 @@ namespace DDEngine
 			Graphics.PreferredBackBufferHeight = (int)(Dimensions.Y*Dimensions.Z);
 			Graphics.ApplyChanges();
 		}
-
 		/// <summary>
 		/// Loads the content.
 		/// </summary>
@@ -86,7 +85,6 @@ namespace DDEngine
 			this.Content = new ContentManager(Content.ServiceProvider, "Content");
 			State.LoadContent();
 		}
-
 		/// <summary>
 		/// Unloads the content.
 		/// </summary>
@@ -94,7 +92,6 @@ namespace DDEngine
 		{
 			State.UnloadContent();
 		}
-
 		/// <summary>
 		/// Update the specified gameTime.
 		/// </summary>
@@ -104,7 +101,6 @@ namespace DDEngine
 		{
 			State.Update(gameTime);
 		}
-
 		/// <summary>
 		/// Draw the specified spriteBatch.
 		/// </summary>
@@ -114,7 +110,7 @@ namespace DDEngine
 		{
 			Graphics.GraphicsDevice.SetRenderTarget(_nativeRenderTarget);
 			Graphics.GraphicsDevice.Clear(BackgroundColor);
-			spriteBatch.Begin(samplerState: SamplerState.PointClamp);
+			spriteBatch.Begin(SpriteSortMode.BackToFront, null, SamplerState.PointClamp, null, null, null, State.Camera.TranslationMatrix);
 			State.Draw(spriteBatch);
 			spriteBatch.End();
 			Graphics.GraphicsDevice.SetRenderTarget(null);
