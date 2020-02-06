@@ -11,12 +11,16 @@ namespace DDEngine
 		/// Reference to the content manager.
 		/// </summary>
 		protected ContentManager Content;
+		/// <summary>
+		/// Determines whether to run this object's logic or not
+		/// </summary>
+		protected bool active = true;
+		public bool Active { get { return active; } set { active = value; } }
 
 		public virtual void LoadContent(ContentManager Content)
 		{
 			this.Content = Content;
 		}
-
 		/// <summary>
 		/// Update loop with game time.
 		/// </summary>
