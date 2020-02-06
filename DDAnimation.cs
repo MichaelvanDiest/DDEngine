@@ -44,10 +44,6 @@ namespace DDEngine
         /// </summary>
         public int frameHeight;
         /// <summary>
-        /// State of the animation
-        /// </summary>
-        public bool active;
-        /// <summary>
         /// If the animation loops
         /// </summary>
         public bool looping;
@@ -61,11 +57,7 @@ namespace DDEngine
             this.frameSpeed = frameSpeed;
 			this.scale = scale;
             this.looping = looping;
-
-            //Set time to zero
             currentFrame = 0;
-
-			active = true;
         }
 
 		/// <summary>
