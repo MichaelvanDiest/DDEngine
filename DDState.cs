@@ -37,9 +37,9 @@ namespace DDEngine
 		{
 			Content = new ContentManager(DDGame.Instance.Content.ServiceProvider, "Content");
             
-			foreach (DDObject i in Members)
+			foreach (DDObject o in Members)
             {
-                i.LoadContent(Content);
+                o.LoadContent(Content);
             }
 		}
 
@@ -58,9 +58,9 @@ namespace DDEngine
         /// <param name="gameTime">Game time.</param>
 		public virtual void Update(GameTime gameTime)
 		{
-			foreach (DDObject i in Members)
+			foreach (DDObject o in Members)
             {
-                i.Update(gameTime);
+                if (o.Active) o.Update(gameTime);
             }
 		}
 
@@ -71,9 +71,9 @@ namespace DDEngine
         /// <param name="spriteBatch">Sprite batch.</param>
 		public virtual void Draw(SpriteBatch spriteBatch)
 		{
-			foreach (DDObject i in Members)
+			foreach (DDObject o in Members)
             {
-                i.Draw(spriteBatch);
+               if (o.Active) o.Draw(spriteBatch);
             }
 		}
 
