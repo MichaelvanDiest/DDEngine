@@ -6,9 +6,9 @@ using Microsoft.Xna.Framework.Content;
 
 namespace DDEngine
 {
-	public class DDState
-	{
-		protected ContentManager Content;
+    public class DDState
+    {
+        protected ContentManager Content;
 
         /// <summary>
         /// Gets the members.
@@ -20,12 +20,12 @@ namespace DDEngine
         /// </summary>
         public DDCamera Camera { get; private set; }
 
-		/// <summary>
-		/// Initialize this state.
-		/// </summary>
+        /// <summary>
+        /// Initialize this state.
+        /// </summary>
         public virtual void Initialize()
         {
-			Members = new List<DDObject>();
+            Members = new List<DDObject>();
             Camera = new DDCamera();
             Camera.Initialize();
         }
@@ -34,22 +34,22 @@ namespace DDEngine
         /// Create a Content Manager for the state then pass the content manager to every member.
         /// </summary>
         public virtual void LoadContent()
-		{
-			Content = new ContentManager(DDGame.Instance.Content.ServiceProvider, "Content");
-            
-			foreach (DDObject o in Members)
+        {
+            Content = new ContentManager(DDGame.Instance.Content.ServiceProvider, "Content");
+
+            foreach (DDObject o in Members)
             {
                 o.LoadContent(Content);
             }
-		}
+        }
 
         /// <summary>
         /// Unloads the content.
         /// </summary>
 		public virtual void UnloadContent()
-		{
-			Content.Unload();
-		}
+        {
+            Content.Unload();
+        }
 
         /// <summary>
         /// Update the specified gameTime and update for every member.
@@ -57,12 +57,12 @@ namespace DDEngine
         /// <returns>The update.</returns>
         /// <param name="gameTime">Game time.</param>
 		public virtual void Update(GameTime gameTime)
-		{
-			foreach (DDObject o in Members)
+        {
+            foreach (DDObject o in Members)
             {
                 if (o.Active) o.Update(gameTime);
             }
-		}
+        }
 
         /// <summary>
         /// Draw the specified spriteBatch and draw every member.
@@ -70,12 +70,12 @@ namespace DDEngine
         /// <returns>The draw.</returns>
         /// <param name="spriteBatch">Sprite batch.</param>
 		public virtual void Draw(SpriteBatch spriteBatch)
-		{
-			foreach (DDObject o in Members)
+        {
+            foreach (DDObject o in Members)
             {
-               if (o.Active) o.Draw(spriteBatch);
+                if (o.Active) o.Draw(spriteBatch);
             }
-		}
+        }
 
         /// <summary>
         /// Add the specified item to this state.
@@ -87,5 +87,5 @@ namespace DDEngine
             Members.Add(item);
             return item;
         }
-	}
+    }
 }

@@ -11,10 +11,10 @@ namespace DDEngine
         /// Sprite Sheet
         /// </summary>
         public Texture2D spriteStrip;
-		/// <summary>
-		/// Path to the image.
-		/// </summary>
-		private string spritePath;
+        /// <summary>
+        /// Path to the image.
+        /// </summary>
+        private string spritePath;
         /// <summary>
         /// Sprite scale.
         /// </summary>
@@ -50,24 +50,24 @@ namespace DDEngine
 
         public DDAnimation(string spritePath, int frameWidth, int frameHeight, int frameCount, int frameSpeed, float scale, bool looping)
         {
-			this.spritePath = spritePath;
+            this.spritePath = spritePath;
             this.frameWidth = frameWidth;
             this.frameHeight = frameHeight;
             this.frameCount = frameCount;
             this.frameSpeed = frameSpeed;
-			this.scale = scale;
+            this.scale = scale;
             this.looping = looping;
             currentFrame = 0;
         }
 
-		/// <summary>
-		/// Load Content
-		/// </summary>
-		/// <param name="Content"></param>
-		public override void LoadContent(ContentManager Content)
-		{
-			spriteStrip = Content.Load<Texture2D>(spritePath);
-			base.LoadContent(Content);
-		}
+        /// <summary>
+        /// Load Content
+        /// </summary>
+        /// <param name="Content"></param>
+        public override void LoadContent(ContentManager Content)
+        {
+            spriteStrip = Content.Load<Texture2D>(spritePath);
+            base.LoadContent(Content);
+        }
     }
 }
